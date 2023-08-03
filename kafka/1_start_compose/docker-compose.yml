@@ -1,0 +1,26 @@
+# Переменные окружения в confluentinc/confluent-local - https://github.com/confluentinc/kafka-images/blob/7.4.x/local/include/etc/confluent/docker/configureDefaults
+# Конфигурация без кластера - https://stackoverflow.com/questions/65682557/kafka-docker-image-that-works-without-zookeeper
+# Конфигураия с кластером - https://codersee.com/how-to-set-up-kafka-without-zookeeper-using-docker-compose/
+version: '3.9'
+services:
+  broker:
+    image: confluentinc/confluent-local:7.4.1
+    hostname: broker
+    container_name: broker
+    ports:
+      - "8082:8082"
+      - "9092:9092"
+      - "9101:9101"
+    environment:
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://broker:29092,PLAINTEXT_HOST://192.168.88.253:9092'
+      KAFKA_CONTROLLER_QUORUM_VOTERS: '1@broker:29093'
+      KAFKA_LISTENERS: 'PLAINTEXT://broker:29092,CONTROLLER://broker:29093,PLAINTEXT_HOST://0.0.0.0:9092'
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - "8080:8080"
+    environment:
+      DYNAMIC_CONFIG_ENABLED: true
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: broker:29092

@@ -1,0 +1,5 @@
+bootstrap_servers = '192.168.88.253:9092'
+consumers_group_id_1 = 'group_1'
+consumers_group_id_2 = 'group_2'
+topic_1 = 'topic1'
+topic_2 = 'topic2'
