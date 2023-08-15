@@ -2,7 +2,7 @@ from typing import List
 
 from confluent_kafka import Consumer, TopicPartition
 
-from config import bootstrap_servers, consumers_group_id_1, topic_1
+from config import bootstrap_servers, consumers_group_id_1, topic_1, dlq_topic
 
 
 def print_assignment(consumer: Consumer, partitions: List[TopicPartition]):

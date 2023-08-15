@@ -1,0 +1,19 @@
+version: "3.9"
+services:
+  rabbitmq:
+    image: rabbitmq:3.12-management
+    hostname: 'rabbitmq'
+    container_name: rabbitmq
+    volumes:
+      - "./configuration/rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf"
+      - "./data:/var/lib/rabbitmq/mnesia" # сохраняем стейт - при ошибке, контейнер перезагрузится и не потеряет данные
+    ports:
+        - "5672:5672"
+        - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+      - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+    restart: always
+
+

@@ -50,4 +50,5 @@ def kafka_producer_example(bootstrap_servers, topic):
     producer.flush()
 
 
+
 kafka_producer_example(bootstrap_servers, topic_2)

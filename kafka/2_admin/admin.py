@@ -1,11 +1,10 @@
 from asyncio import Future
 from typing import Dict
-from confluent_kafka.admin import AdminClient
-from kafka.admin import NewTopic
+from confluent_kafka.admin import AdminClient, NewTopic
 
-from config import cluster_bootstrap_servers, topic_2, topic_1
+from config import topic_2, topic_1, bootstrap_server
 
-admin: AdminClient = AdminClient({'bootstrap.servers': cluster_bootstrap_servers})
+admin: AdminClient = AdminClient({'bootstrap.servers': bootstrap_server})
 
 # Note: В продакшен среде лучше ставить replication_factor=3 для durability
 new_topics_3part = [NewTopic(topic, num_partitions=3, replication_factor=1) for topic in [topic_1]]

@@ -1,4 +1,4 @@
-bootstrap_servers = '192.168.88.253:9092'
+bootstrap_server = '192.168.88.253:9092'
 cluster_bootstrap_servers = '192.168.88.253:9092,192.168.88.253:9093,192.168.88.253:9094'
 consumers_group_id_1 = 'group_1'
 consumers_group_id_2 = 'group_2'

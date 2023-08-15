@@ -23,7 +23,7 @@ def kafka_producer_example(bootstrap_servers, topic):
         'bootstrap.servers': bootstrap_servers,
         'client.id': socket.gethostname(),
         # Optional
-        'acks': 'all',
+        'acks': '1',
         'enable.idempotence': True,
     }
     producer: Producer = Producer(**conf)

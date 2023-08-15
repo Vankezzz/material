@@ -23,6 +23,7 @@ def kafka_producer_example(bootstrap_servers, topic):
         'bootstrap.servers': bootstrap_servers,
         'client.id': socket.gethostname(),
         # Optional
+        "acks": "all",
         'enable.idempotence': True,                 # Выключает дублирование сообщений
         'transactional.id': 'my-transactional-id',  # Уникальный Id для транзакции
     }
@@ -50,7 +51,6 @@ def kafka_producer_example(bootstrap_servers, topic):
             print(f"Добавили {message_value}")
             producer.poll(.5)
             time.sleep(1)
-
     except BufferError:
         print(f'Очередь продюсера(приложения) уже заполнена ({len(producer)} сообщений ожидают отправки)')
     except Exception as ex:
