@@ -1,3 +1,5 @@
+import time
+
 from pika.adapters.blocking_connection import BlockingChannel
 from pika.exchange_type import ExchangeType
 from pika.spec import Basic, BasicProperties
@@ -7,24 +9,24 @@ import pika
 
 params = pika.URLParameters(ampq_url)
 blocking_conn = pika.BlockingConnection(params)
+
 channel = blocking_conn.channel()
 channel.exchange_declare(
     exchange=exchange,
-    exchange_type=ExchangeType.direct  # По умолчанию
+    exchange_type=ExchangeType.fanout
 )
 result = channel.queue_declare(
     queue='',
     exclusive=True
 )
 queue_name = result.method.queue
+
 channel.queue_bind(
     exchange=exchange,
-    queue=queue_name,
-    routing_key=routing_key_1
+    queue=queue_name
 )
 
 
-# Классический Callback
 def callback(ch: BlockingChannel, method: Basic.Deliver, properties: BasicProperties, body):
     print(f"Body: {body.decode()}; "
           f"Delivery tag: {method.delivery_tag}")
@@ -35,6 +37,5 @@ consumer_tag = channel.basic_consume(
     queue=queue_name,
     on_message_callback=callback,
 )
-print(f"Запускаем потребителя с очередью {queue_name} на канале {consumer_tag} c binding: {routing_key_1}")
+print(f"Запускаем потребителя с очередью {queue_name} на канале {consumer_tag}")
 channel.start_consuming()
-

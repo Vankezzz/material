@@ -6,6 +6,7 @@ services:
       - "80:80"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
+
   rabbitmq:
     image: rabbitmq:3.12-management
     hostname: 'rabbitmq'

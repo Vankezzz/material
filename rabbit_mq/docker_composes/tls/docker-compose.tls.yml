@@ -2,13 +2,18 @@ version: "3.9"
 services:
   rabbitmq:
     image: rabbitmq:3.12-management
-    hostname: 'rabbitmq'
+    hostname: almaz.loc
     container_name: rabbitmq
     volumes:
       - "./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf"
+      - "./certs/ca_certificate.pem:/etc/ssl/ca_certificate.pem:ro"
+      - "./certs/server_certificate.pem:/etc/ssl/server_certificate.pem:ro"
+      - "./certs/server_key.pem:/etc/ssl/server_key.pem:ro"
       - "./data:/var/lib/rabbitmq/mnesia" # сохраняем стейт - при ошибке, контейнер перезагрузится и не потеряет данные
     ports:
+        - "5671:5671"
         - "5672:5672"
+        - "15671:15671"
         - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=guest
