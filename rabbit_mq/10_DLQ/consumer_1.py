@@ -41,7 +41,7 @@ def callback(ch: BlockingChannel, method: Basic.Deliver, properties: BasicProper
     if method.delivery_tag % 3 == 0:
         print("Отправляем сообщение в DLQ")
         # ch.basic_nack(delivery_tag=method.delivery_tag,requeue=False)
-        ch.basic_reject(delivery_tag=method.delivery_tag,requeue=False)
+        ch.basic_reject(delivery_tag=method.delivery_tag,requeue=True)
     else:
         ch.basic_ack(delivery_tag=method.delivery_tag)
 

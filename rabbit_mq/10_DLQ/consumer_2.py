@@ -38,6 +38,11 @@ def callback(ch: BlockingChannel, method: Basic.Deliver, properties: BasicProper
         f"Body: {body.decode()}; "
         f"Delivery tag: {method.delivery_tag};"
     )
+    # if method.redelivered:
+    #     print("requeue")
+    #     ch.basic_reject(delivery_tag=method.delivery_tag, requeue=False)
+    # else:
+    #     ch.basic_ack(delivery_tag=method.delivery_tag)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 

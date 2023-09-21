@@ -55,7 +55,7 @@ def callback(ch: BlockingChannel, method: Basic.Deliver, properties: BasicProper
         f"Priority: {properties.priority};"
         f"TTL: {properties.expiration};"
     )
-    time.sleep(2)
+    # time.sleep(2)
     ch.basic_ack(delivery_tag=method.delivery_tag)
 
 

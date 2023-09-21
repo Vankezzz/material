@@ -1,5 +1,5 @@
-ampq_url = 'amqp://guest:guest@almaz.loc:5672'
-exchange = '6_exchange_topics_exchange'
+ampq_url = 'amqp://guest:guest@82.199.101.51:18479'
+exchange = 'exchange_topics_exchange'
 
 routing_keys = ["user.profile.created", "user.profile.verified", "user.profile.deleted","user.msg.deleted"]
 

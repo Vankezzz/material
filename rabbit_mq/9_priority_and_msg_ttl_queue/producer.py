@@ -14,7 +14,7 @@ for i in range(100):
         body=message.encode('utf-8'),
         properties=pika.BasicProperties(
             delivery_mode=pika.spec.PERSISTENT_DELIVERY_MODE,  # сообщение в durable очереди запишется на диск
-            priority=10 if i % 10 == 0 else 1
+            priority=10 if i % 10 == 0 and i != 0 else 1
         )
 
     )
